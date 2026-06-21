@@ -339,7 +339,7 @@ def get_reviews_stats():
     discovery_issues_count = 0
     
     for r in analyzed:
-        analysis = r.get("analysis", {})
+        analysis = r.get("analysis") or {}
         sent = analysis.get("sentiment", "Neutral")
         sentiments[sent] = sentiments.get(sent, 0) + 1
         

@@ -122,15 +122,15 @@ def synthesize_key_questions(api_key, model_id, reviews, question_id):
     relevant_reviews = [r for r in reviews if r.get("analysis_status") == "analyzed"]
     
     if question_id == "q4":
-        relevant_reviews.sort(key=lambda x: 0 if x.get("analysis", {}).get("category") == "Repeat Listening" else 1)
+        relevant_reviews.sort(key=lambda x: 0 if (x.get("analysis") or {}).get("category") == "Repeat Listening" else 1)
     elif question_id == "q1" or question_id == "q6":
-        relevant_reviews.sort(key=lambda x: 0 if x.get("analysis", {}).get("discovery_issue") else 1)
+        relevant_reviews.sort(key=lambda x: 0 if (x.get("analysis") or {}).get("discovery_issue") else 1)
     elif question_id == "q2":
-        relevant_reviews.sort(key=lambda x: 0 if x.get("analysis", {}).get("category") == "Algorithm Frustration" else 1)
+        relevant_reviews.sort(key=lambda x: 0 if (x.get("analysis") or {}).get("category") == "Algorithm Frustration" else 1)
         
     sample_context = ""
     for r in relevant_reviews[:30]:
-        analysis = r.get("analysis", {})
+        analysis = r.get("analysis") or {}
         sample_context += f"- [{r['source'].upper()} Rating: {r.get('rating') or 'N/A'}] Pain Point: {analysis.get('pain_point', 'N/A')}\n  Review: {r['content'][:200]}\n"
         
     if not sample_context:
@@ -181,12 +181,12 @@ def generate_one_page_summary(api_key, model_id, reviews):
     if analyzed_count == 0:
         return "<h3>No analyzed reviews available. Please run LLM analysis or seed sample reviews.</h3>"
         
-    discovery_count = sum(1 for r in analyzed if r.get("analysis", {}).get("discovery_issue") is True)
+    discovery_count = sum(1 for r in analyzed if (r.get("analysis") or {}).get("discovery_issue") is True)
     discovery_ratio = (discovery_count / analyzed_count) * 100 if analyzed_count > 0 else 0
     
-    pos = sum(1 for r in analyzed if r.get("analysis", {}).get("sentiment") == "Positive")
-    neu = sum(1 for r in analyzed if r.get("analysis", {}).get("sentiment") == "Neutral")
-    neg = sum(1 for r in analyzed if r.get("analysis", {}).get("sentiment") == "Negative")
+    pos = sum(1 for r in analyzed if (r.get("analysis") or {}).get("sentiment") == "Positive")
+    neu = sum(1 for r in analyzed if (r.get("analysis") or {}).get("sentiment") == "Neutral")
+    neg = sum(1 for r in analyzed if (r.get("analysis") or {}).get("sentiment") == "Negative")
     
     pos_pct = int((pos / analyzed_count) * 100) if analyzed_count > 0 else 0
     neu_pct = int((neu / analyzed_count) * 100) if analyzed_count > 0 else 0
@@ -197,7 +197,7 @@ def generate_one_page_summary(api_key, model_id, reviews):
     feedback_samples = []
     
     for r in analyzed:
-        analysis = r.get("analysis", {})
+        analysis = r.get("analysis") or {}
         cat = analysis.get("category", "Other")
         pain = analysis.get("pain_point", "N/A")
         categories_freq[cat] = categories_freq.get(cat, 0) + 1
