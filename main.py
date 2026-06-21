@@ -69,7 +69,10 @@ def load_config() -> dict:
                 saved = json.load(f)
                 # Clean up any string values by stripping trailing newlines/spaces
                 cleaned = {k: v.strip() if isinstance(v, str) else v for k, v in saved.items()}
-                default_config.update(cleaned)
+                # Update default config, but do not overwrite non-empty environment variables with empty values
+                for k, v in cleaned.items():
+                    if v or not default_config.get(k):
+                        default_config[k] = v
         except Exception as e:
             print(f"[API] Error loading configuration: {str(e)}")
     return default_config
