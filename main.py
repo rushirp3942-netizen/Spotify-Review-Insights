@@ -55,19 +55,21 @@ def save_db(data: list):
 # Helper functions for config management
 def load_config() -> dict:
     default_config = {
-        "groq_api_key": os.environ.get("GROQ_API_KEY", ""),
-        "groq_model": os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile"),
-        "smtp_host": os.environ.get("SMTP_HOST", ""),
-        "smtp_port": os.environ.get("SMTP_PORT", "587"),
-        "smtp_username": os.environ.get("SMTP_USERNAME", ""),
-        "smtp_password": os.environ.get("SMTP_PASSWORD", ""),
-        "smtp_sender_email": os.environ.get("SMTP_SENDER_EMAIL", "")
+        "groq_api_key": os.environ.get("GROQ_API_KEY", "").strip(),
+        "groq_model": os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile").strip(),
+        "smtp_host": os.environ.get("SMTP_HOST", "").strip(),
+        "smtp_port": os.environ.get("SMTP_PORT", "587").strip(),
+        "smtp_username": os.environ.get("SMTP_USERNAME", "").strip(),
+        "smtp_password": os.environ.get("SMTP_PASSWORD", "").strip(),
+        "smtp_sender_email": os.environ.get("SMTP_SENDER_EMAIL", "").strip()
     }
     if os.path.exists(CONFIG_FILE):
         try:
             with open(CONFIG_FILE, "r", encoding="utf-8") as f:
                 saved = json.load(f)
-                default_config.update(saved)
+                # Clean up any string values by stripping trailing newlines/spaces
+                cleaned = {k: v.strip() if isinstance(v, str) else v for k, v in saved.items()}
+                default_config.update(cleaned)
         except Exception as e:
             print(f"[API] Error loading configuration: {str(e)}")
     return default_config

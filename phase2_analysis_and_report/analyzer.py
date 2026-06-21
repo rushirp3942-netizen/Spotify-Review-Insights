@@ -7,8 +7,9 @@ def get_groq_client(api_key):
     try:
         from groq import Groq
         import httpx
+        cleaned_key = api_key.strip() if isinstance(api_key, str) else api_key
         return Groq(
-            api_key=api_key,
+            api_key=cleaned_key,
             http_client=httpx.Client(
                 http2=False,
                 timeout=60.0
