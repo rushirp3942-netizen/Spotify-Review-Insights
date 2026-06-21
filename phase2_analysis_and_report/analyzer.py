@@ -260,5 +260,7 @@ Make it visually stunning, using colors: #1DB954 (Spotify Green), #191414 (Spoti
             
         return html_report.strip()
     except Exception as e:
-        print(f"[Analyzer] Failed to generate HTML report: {str(e)}")
-        return f"<h3>Error generating report: {str(e)}</h3>"
+        import traceback
+        tb = traceback.format_exc()
+        print(f"[Analyzer] Failed to generate HTML report: {str(e)}\n{tb}")
+        return f"<h3>Error generating report: {str(e)}</h3><pre style='color:#ff0000; background:#000; padding:15px; border-radius:4px; overflow-x:auto;'>{tb}</pre>"
