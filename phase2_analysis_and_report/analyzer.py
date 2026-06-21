@@ -9,7 +9,10 @@ def get_groq_client(api_key):
         import httpx
         return Groq(
             api_key=api_key,
-            http_client=httpx.Client(http2=False)
+            http_client=httpx.Client(
+                http2=False,
+                timeout=60.0
+            )
         )
     except ImportError:
         raise Exception("The 'groq' package is not installed. Please verify installation status.")
