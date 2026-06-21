@@ -441,16 +441,19 @@ def generate_report():
     if not api_key:
         raise HTTPException(status_code=400, detail="Groq API Key is not configured in settings.")
         
-    db = load_db()
-    html_report = analyzer.generate_one_page_summary(api_key, model_id, db)
-    
     try:
-        with open("cached_report.html", "w", encoding="utf-8") as f:
-            f.write(html_report)
-    except Exception as e:
-        print(f"[API] Error caching report: {str(e)}")
+        db = load_db()
+        html_report = analyzer.generate_one_page_summary(api_key, model_id, db)
         
-    return {"html_report": html_report}
+        try:
+            with open("cached_report.html", "w", encoding="utf-8") as f:
+                f.write(html_report)
+        except Exception as e:
+            print(f"[API] Error caching report: {str(e)}")
+            
+        return {"html_report": html_report}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to generate report: {str(e)}")
 
 @app.post("/api/report/send-email")
 def send_report_by_email(req: EmailRequest):

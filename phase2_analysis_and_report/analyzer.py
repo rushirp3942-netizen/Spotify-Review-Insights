@@ -204,7 +204,9 @@ def generate_one_page_summary(api_key, model_id, reviews):
         pain_points_freq[pain] = pain_points_freq.get(pain, 0) + 1
         
         if len(feedback_samples) < 25:
-            feedback_samples.append(f"- [{r['source'].upper()}] Category: {cat} | Pain: {pain}\n  \"{r['content'][:150]}...\"")
+            source_str = (r.get("source") or "unknown").upper()
+            content_str = r.get("content") or ""
+            feedback_samples.append(f"- [{source_str}] Category: {cat} | Pain: {pain}\n  \"{content_str[:150]}...\"")
             
     feedback_context = "\n\n".join(feedback_samples)
     
