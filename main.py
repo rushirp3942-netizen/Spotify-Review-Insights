@@ -236,7 +236,10 @@ def get_config():
 @app.post("/api/config")
 def update_config(data: GroqConfigUpdate):
     cfg = load_config()
-    cfg["groq_api_key"] = data.groq_api_key.strip()
+    # Keep existing key if the incoming one is empty
+    new_key = data.groq_api_key.strip()
+    if new_key:
+        cfg["groq_api_key"] = new_key
     cfg["groq_model"] = data.groq_model.strip()
     save_config(cfg)
     return {"status": "success", "message": "Groq configuration updated."}

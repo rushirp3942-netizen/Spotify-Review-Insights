@@ -603,6 +603,16 @@ emailForm.addEventListener('submit', async (e) => {
 
 // --- SETTINGS AND INGESTION MODULES ---
 function initializeForms() {
+    // Pre-fill Groq settings if configured
+    fetch(`${API_BASE}/api/config`)
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('settings-model').value = data.groq_model || "llama-3.3-70b-versatile";
+            if (data.groq_api_key_configured) {
+                document.getElementById('settings-key').placeholder = `•••••••••••• (${data.groq_api_key_preview})`;
+            }
+        });
+
     // Save Groq Settings
     const groqForm = document.getElementById('settings-groq-form');
     groqForm.addEventListener('submit', async (e) => {
@@ -621,6 +631,14 @@ function initializeForms() {
                 alert("Groq Settings Saved successfully!");
                 document.getElementById('settings-key').value = ""; // Clear
                 await checkConfigStatus();
+                // Refresh placeholder
+                fetch(`${API_BASE}/api/config`)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.groq_api_key_configured) {
+                            document.getElementById('settings-key').placeholder = `•••••••••••• (${data.groq_api_key_preview})`;
+                        }
+                    });
             } else {
                 throw new Error("Failed to save.");
             }
