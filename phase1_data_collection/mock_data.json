@@ -1,0 +1,257 @@
+[
+  {
+    "id": "play_store_01",
+    "source": "play_store",
+    "content": "The new update ruined the algorithm. My Discover Weekly used to be amazing, but now it is just recommending the same songs I listened to a month ago. I want actual new music, not a recap of my existing playlist!",
+    "rating": 2,
+    "author": "music_lover_99",
+    "timestamp": "2026-06-15T10:30:00Z",
+    "url": "https://play.google.com/store/apps/details?id=com.spotify.music&reviewId=ps_01",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Algorithm Frustration",
+      "summary": "User complains that Discover Weekly has stopped recommending new music and is instead recommending already-played songs.",
+      "pain_point": "Repeating familiar songs",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "reddit_01",
+    "source": "reddit",
+    "content": "Why does Smart Shuffle only play songs I've skipped 100 times? Seriously, every time I turn on Smart Shuffle in my rock playlist, it inserts the exact same five pop-metal tracks that I hate and have skipped dozens of times. It feels like the algorithm is pushing sponsored tracks rather than matching my actual taste or introducing me to cool new underground bands.",
+    "rating": null,
+    "author": "u/grunge_kid",
+    "timestamp": "2026-06-18T14:45:00Z",
+    "url": "https://www.reddit.com/r/spotify/comments/rd_01",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Algorithm Frustration",
+      "summary": "User is frustrated that Smart Shuffle inserts repetitive, skipped tracks instead of matching taste or showing new indie bands.",
+      "pain_point": "Ineffective Smart Shuffle",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "forum_01",
+    "source": "spotify_forum",
+    "content": "Feature Request: 'Pure Discovery Mode' (Filter out saved/listened artists). I am so tired of my Release Radar and Daily Mixes being filled with artists I already have in my library. I want to actively discover completely new music. Can we please get a toggle or filter that hides any artist I have saved or listened to more than 5 times? Right now, discovery is just a feedback loop of my existing habits.",
+    "rating": null,
+    "author": "discovery_seeker",
+    "timestamp": "2026-06-12T08:15:00Z",
+    "url": "https://community.spotify.com/t5/Live-Ideas/Pure-Discovery-Mode/idi-p/sf_01",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Neutral",
+      "category": "Music Discovery",
+      "summary": "User requests a feature to filter out saved or frequently played artists to enable pure music discovery and break the feedback loop.",
+      "pain_point": "Familiar artist feedback loop",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "play_store_02",
+    "source": "play_store",
+    "content": "Excellent app, love the UI and offline mode works flawlessly. However, the recommendations are getting a bit stale. I wish it was easier to find niche genres like Japanese City Pop or Synthwave without having to search for external user playlists.",
+    "rating": 4,
+    "author": "pixel_driver",
+    "timestamp": "2026-06-19T22:10:00Z",
+    "url": "https://play.google.com/store/apps/details?id=com.spotify.music&reviewId=ps_02",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Positive",
+      "category": "Music Discovery",
+      "summary": "User loves the app UI and offline mode but finds recommendations stale and wants easier access to niche genres.",
+      "pain_point": "Stale niche genre discovery",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "reddit_02",
+    "source": "reddit",
+    "content": "The DJ feature is just a glorified repeater. At first, the AI DJ was cool. But after using it for a month, I realized it just plays the same 4 genres I always listen to and repeats the same 'editor's picks' songs over and over. Every time he says 'let's switch it up', he just plays tracks I listened to yesterday. It doesn't actually help me discover anything new; it just packages my habits into a radio format.",
+    "rating": null,
+    "author": "u/dj_disappointed",
+    "timestamp": "2026-06-16T18:20:00Z",
+    "url": "https://www.reddit.com/r/spotify/comments/rd_02",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Algorithm Frustration",
+      "summary": "User expresses disappointment that the AI DJ feature repeats familiar songs and daily listening habits rather than aiding discovery.",
+      "pain_point": "AI DJ repetition",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "forum_02",
+    "source": "spotify_forum",
+    "content": "Daily Mixes are exactly the same every single day. Why are my Daily Mixes identical day after day? Daily Mix 1 has had the same 15 indie rock songs for three weeks straight. I skip them, but they are back tomorrow. How am I supposed to discover new bands when the mixes never refresh?",
+    "rating": null,
+    "author": "indie_steve",
+    "timestamp": "2026-06-14T11:05:00Z",
+    "url": "https://community.spotify.com/t5/Content-Questions/Daily-Mixes-never-change/td-p/sf_02",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Repeat Listening",
+      "summary": "User complains that Daily Mixes repeat the same songs daily and do not refresh, preventing new band discovery.",
+      "pain_point": "Unrefreshing Daily Mixes",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "play_store_03",
+    "source": "play_store",
+    "content": "I keep getting recommended country music in my autoplay. I have NEVER listened to country music and absolute hate it. Please fix the autoplay queue, it is completely out of touch with my listening history.",
+    "rating": 1,
+    "author": "metalhead_joe",
+    "timestamp": "2026-06-20T03:40:00Z",
+    "url": "https://play.google.com/store/apps/details?id=com.spotify.music&reviewId=ps_03",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Algorithm Frustration",
+      "summary": "User is frustrated that autoplay plays irrelevant genres like country music which contradict their listening history.",
+      "pain_point": "Irrelevant autoplay genres",
+      "discovery_issue": false
+    }
+  },
+  {
+    "id": "reddit_03",
+    "source": "reddit",
+    "content": "Is anyone else trapped in a 'Genre Cage'? I listened to ONE lofi playlist to study last week, and now my entire home page is lofi study beats. My Daily Mixes are ruined, my Discover Weekly is 80% lofi, and my autoplay keeps pushing it. The algorithm over-indexes on recent temporary listening and traps you in a cage. It makes it impossible to go back to discovering the indie rock and synth-pop I actually love.",
+    "rating": null,
+    "author": "u/trapped_in_lofi",
+    "timestamp": "2026-06-17T09:12:00Z",
+    "url": "https://www.reddit.com/r/spotify/comments/rd_03",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Algorithm Frustration",
+      "summary": "User describes being trapped in a lofi 'genre cage' because the algorithm over-indexes on short-term habits, ruining their discovery flow.",
+      "pain_point": "Algorithm over-indexing on temporary play",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "forum_03",
+    "source": "spotify_forum",
+    "content": "How to reset recommendation history? Is there a way to hard reset my recommendations? I share my account with my kid and now my recommendations are a mix of nursery rhymes and heavy metal. The algorithm is confused and I can't find any good new metal music anymore. A reset button or profiles for family members on the same account would help.",
+    "rating": null,
+    "author": "metal_dad",
+    "timestamp": "2026-06-11T16:30:00Z",
+    "url": "https://community.spotify.com/t5/Accounts/Reset-recommendation-history/td-p/sf_03",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Neutral",
+      "category": "UI/UX",
+      "summary": "User wants a way to reset recommendation history due to shared account activity polluting their metal discovery options.",
+      "pain_point": "Shared account profile pollution",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "play_store_04",
+    "source": "play_store",
+    "content": "I like the new UI update, makes finding my offline playlists much faster. The smart search is also very fast. 5 stars.",
+    "rating": 5,
+    "author": "fast_searcher",
+    "timestamp": "2026-06-20T12:00:00Z",
+    "url": "https://play.google.com/store/apps/details?id=com.spotify.music&reviewId=ps_04",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Positive",
+      "category": "UI/UX",
+      "summary": "User praises the UI update for fast offline playlist retrieval and smart search speed.",
+      "pain_point": "UI efficiency",
+      "discovery_issue": false
+    }
+  },
+  {
+    "id": "reddit_04",
+    "source": "reddit",
+    "content": "Why doesn't Spotify have a 'Dislike' button on all songs? It's so annoying that I can't permanently block a song or artist from ever playing again unless I'm in a specific playlist. If a song comes up in an editorial playlist or search radio and I skip it immediately, Spotify should learn I don't want to hear it. Instead, it pops up again next week. We need a global blacklist button to improve discovery quality.",
+    "rating": null,
+    "author": "u/blacklist_now",
+    "timestamp": "2026-06-15T21:40:00Z",
+    "url": "https://www.reddit.com/r/spotify/comments/rd_04",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Playlist Management",
+      "summary": "User is frustrated by the lack of a global blacklist or dislike button to block disliked songs and artists from discovery recommendations.",
+      "pain_point": "Lack of global blacklist button",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "forum_04",
+    "source": "spotify_forum",
+    "content": "Discover Weekly has become too 'Safe' and boring. Has anyone else noticed that Discover Weekly has become extremely safe? It used to give me weird, experimental artists from all over the world. Now, it's just moderately popular artists that fit a very strict cookie-cutter acoustic/indie vibe. It feels like the algorithm is scared to recommend anything polarizing, which makes it incredibly boring.",
+    "rating": null,
+    "author": "experimental_ear",
+    "timestamp": "2026-06-13T13:50:00Z",
+    "url": "https://community.spotify.com/t5/Content-Questions/Discover-Weekly-too-safe/td-p/sf_04",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Music Discovery",
+      "summary": "User claims Discover Weekly has become too safe and predictable, failing to recommend experimental or polarizing music.",
+      "pain_point": "Predictable safe recommendations",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "play_store_05",
+    "source": "play_store",
+    "content": "Why does shuffle play the same 30 songs from my 800-song playlist? I literally hear the same sequence of tracks every time I click shuffle. I have to manually scroll and pick songs to hear the other 770 tracks. This is not how shuffle is supposed to work.",
+    "rating": 2,
+    "author": "shuffle_broken",
+    "timestamp": "2026-06-19T06:30:00Z",
+    "url": "https://play.google.com/store/apps/details?id=com.spotify.music&reviewId=ps_05",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Playlist Management",
+      "summary": "User complains that the shuffle feature favors the same 30 songs in an 800-song playlist instead of playing a random selection.",
+      "pain_point": "Repetitive shuffle algorithm",
+      "discovery_issue": false
+    }
+  },
+  {
+    "id": "reddit_05",
+    "source": "reddit",
+    "content": "Am I the only one who listens to the same 3 albums on repeat because discovery is exhausting? Honestly, trying to find new music on Spotify is work. The recommendations are either identical to what I already know, or completely out in left field. There's no middle ground that gently introduces me to similar bands. So, I just end up playing my comfort albums on repeat. The UI is just too cluttered with podcasts and promo banners instead of making discovery easy.",
+    "rating": null,
+    "author": "u/exhausted_listener",
+    "timestamp": "2026-06-19T17:15:00Z",
+    "url": "https://www.reddit.com/r/spotify/comments/rd_05",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Repeat Listening",
+      "summary": "User reports listening to comfort albums repeatedly because finding new music feels like exhausting work due to poor recommendation filtering and a cluttered UI.",
+      "pain_point": "Discovery effort and UI clutter",
+      "discovery_issue": true
+    }
+  },
+  {
+    "id": "forum_05",
+    "source": "spotify_forum",
+    "content": "Release Radar not showing my followed artists! My Release Radar today had zero songs from the artists I actually follow, but instead had new releases from major pop stars I've never listened to. What is the point of following an artist if their new releases aren't surfaced in my feed? It feels like Spotify is selling these slots to record labels.",
+    "rating": null,
+    "author": "loyal_follower",
+    "timestamp": "2026-06-10T10:45:00Z",
+    "url": "https://community.spotify.com/t5/Content-Questions/Release-Radar-missing-followed-artists/td-p/sf_05",
+    "analysis_status": "analyzed",
+    "analysis": {
+      "sentiment": "Negative",
+      "category": "Algorithm Frustration",
+      "summary": "User complains that Release Radar prioritizes sponsored major pop stars over followed artists' new releases.",
+      "pain_point": "Sponsored Release Radar placements",
+      "discovery_issue": true
+    }
+  }
+]

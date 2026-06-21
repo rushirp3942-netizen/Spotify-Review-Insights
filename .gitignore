@@ -1,0 +1,21 @@
+# Virtual environment
+.venv/
+venv/
+ENV/
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Sensitive local configurations
+config.json
+.env
+
+# Local reports and logs
+sent_emails_log.txt
+cached_report.html
+
+# Local database file (optional: keep if you want preset reviews, ignore for clean production)
+# reviews_db.json

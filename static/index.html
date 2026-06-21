@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Growth - User Review Insights</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-brands fa-spotify"></i>
+                <span>Spotify Insights</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="explorer">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Review Explorer</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="assistant">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>AI Product Assistant</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="reports">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <span>Growth Reports</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="settings">
+                    <i class="fa-solid fa-gears"></i>
+                    <span>Settings & Ingestion</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="api-status">
+                    <span class="status-dot green" id="status-dot"></span>
+                    <span id="status-text">Groq Not Configured</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <h1 id="page-title">Growth Dashboard</h1>
+                <div class="user-profile">
+                    <span>Growth Product Team</span>
+                    <div class="avatar"><i class="fa-solid fa-user-tie"></i></div>
+                </div>
+            </header>
+
+            <!-- Dashboard Tab -->
+            <section id="tab-dashboard" class="tab-pane active">
+                <!-- Metrics Grid -->
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Total Ingested Feedback</span>
+                            <span class="metric-value" id="metric-total">0</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-database"></i></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">AI Analyzed Reviews</span>
+                            <span class="metric-value" id="metric-analyzed">0</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-brain"></i></div>
+                    </div>
+                    <div class="metric-card highlight">
+                        <div class="metric-info">
+                            <span class="metric-label">Discovery Frustration Ratio</span>
+                            <span class="metric-value" id="metric-discovery">0%</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-info">
+                            <span class="metric-label">Avg Play Store Rating</span>
+                            <span class="metric-value" id="metric-rating">N/A</span>
+                        </div>
+                        <div class="metric-icon"><i class="fa-solid fa-star"></i></div>
+                    </div>
+                </div>
+
+                <!-- Charts Layout -->
+                <div class="dashboard-grid">
+                    <div class="chart-container card-panel">
+                        <h2>Sentiment Distribution</h2>
+                        <div class="canvas-wrapper">
+                            <canvas id="sentimentChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-container card-panel">
+                        <h2>Common Feedback Categories</h2>
+                        <div class="canvas-wrapper">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Section: Top Pain Points -->
+                <div class="card-panel pain-points-panel">
+                    <h2>Recurring User Pain Points (LLM Tagged)</h2>
+                    <ul class="pain-points-list" id="pain-points-list">
+                        <li class="loading-placeholder">No analyzed data. Go to "Settings" to load mock reviews or run scraper.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Review Explorer Tab -->
+            <section id="tab-explorer" class="tab-pane">
+                <div class="card-panel filter-panel">
+                    <div class="filter-grid">
+                        <div class="filter-group">
+                            <label for="filter-source">Platform Source</label>
+                            <select id="filter-source">
+                                <option value="">All Platforms</option>
+                                <option value="play_store">Google Play Store</option>
+                                <option value="reddit">Reddit Discussions</option>
+                                <option value="spotify_forum">Spotify Forums</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-sentiment">Sentiment</label>
+                            <select id="filter-sentiment">
+                                <option value="">All Sentiments</option>
+                                <option value="Positive">Positive</option>
+                                <option value="Neutral">Neutral</option>
+                                <option value="Negative">Negative</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-category">Theme/Category</label>
+                            <select id="filter-category">
+                                <option value="">All Categories</option>
+                                <option value="Algorithm Frustration">Algorithm Frustration</option>
+                                <option value="Playlist Management">Playlist Management</option>
+                                <option value="UI/UX">UI/UX</option>
+                                <option value="Repeat Listening">Repeat Listening</option>
+                                <option value="Music Discovery">Music Discovery</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label for="filter-discovery">Discovery Issue?</label>
+                            <select id="filter-discovery">
+                                <option value="">All Reviews</option>
+                                <option value="true">Discovery Issues Only</option>
+                                <option value="false">Non-Discovery Reviews</option>
+                            </select>
+                        </div>
+                        <div class="filter-group search">
+                            <label for="filter-search">Search Text</label>
+                            <div class="search-input-wrapper">
+                                <input type="text" id="filter-search" placeholder="Type keyword...">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="filter-actions">
+                        <button class="btn btn-secondary" id="btn-reset-filters"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+                        <button class="btn btn-secondary" id="btn-refresh-reviews"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
+                        <button class="btn btn-primary" id="btn-analyze-pending"><i class="fa-solid fa-brain"></i> Analyze Pending (<span id="pending-count-badge">0</span>)</button>
+                    </div>
+                    <div class="progress-container" id="analysis-progress-container" style="display: none; margin-top: 16px; border-top: 1px solid var(--border-color); padding-top: 16px;">
+                        <label id="analysis-progress-label" style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Analyzing: 0%</label>
+                        <progress id="analysis-progress-bar" value="0" max="100" style="width: 100%; height: 8px; border-radius: 4px; overflow: hidden; accent-color: var(--spotify-green); margin-top: 6px;"></progress>
+                        <p id="analysis-progress-status" style="font-size: 12px; margin-top: 6px; color: var(--spotify-green); font-weight: 600;"></p>
+                    </div>
+                </div>
+
+                <!-- Reviews Feed -->
+                <div class="card-panel feed-panel">
+                    <div class="feed-header">
+                        <h2>Ingested Reviews Feed (<span id="results-count">0</span> matching)</h2>
+                    </div>
+                    <div class="reviews-list" id="reviews-feed">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Product Assistant Tab -->
+            <section id="tab-assistant" class="tab-pane">
+                <div class="assistant-container">
+                    <!-- Key Questions Panel -->
+                    <div class="questions-sidebar card-panel">
+                        <h2>Research Focus Questions</h2>
+                        <p class="description">Select a key product question below. Groq LLM will scan the review database and synthesize an executive answer.</p>
+                        <div class="questions-grid">
+                            <button class="q-btn" data-qid="q1">
+                                <span class="q-num">Q1</span>
+                                <span class="q-txt">Why do users struggle to discover new music?</span>
+                            </button>
+                            <button class="q-btn" data-qid="q2">
+                                <span class="q-num">Q2</span>
+                                <span class="q-txt">What are frustrations with recommendation systems?</span>
+                            </button>
+                            <button class="q-btn" data-qid="q3">
+                                <span class="q-num">Q3</span>
+                                <span class="q-txt">What are users' primary listening goals?</span>
+                            </button>
+                            <button class="q-btn" data-qid="q4">
+                                <span class="q-num">Q4</span>
+                                <span class="q-txt">Why do users repeat playlists/songs?</span>
+                            </button>
+                            <button class="q-btn" data-qid="q5">
+                                <span class="q-num">Q5</span>
+                                <span class="q-txt">Which user segments face different challenges?</span>
+                            </button>
+                            <button class="q-btn" data-qid="q6">
+                                <span class="q-num">Q6</span>
+                                <span class="q-txt">What consistently emerging unmet needs are found?</span>
+                            </button>
+                            <button class="q-btn" data-qid="q7">
+                                <span class="q-num">Q7</span>
+                                <span class="q-txt">What product improvement opportunities exist?</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat Assistant Panel -->
+                    <div class="chat-panel card-panel">
+                        <h2>AI Synthesis Terminal</h2>
+                        <div class="chat-history" id="chat-history">
+                            <div class="message system">
+                                <div class="avatar"><i class="fa-solid fa-robot"></i></div>
+                                <div class="msg-content">
+                                    <p>Hello! I am your Spotify Growth Assistant. I can synthesize insights from your reviews database. Select a research question on the left or type your custom query below.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="chat-input-area" id="chat-form">
+                            <input type="text" id="chat-input" placeholder="Ask custom questions (e.g., 'What do Play Store users think of the UI?')..." required>
+                            <button type="submit" class="btn btn-primary" id="chat-send-btn">
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Growth Reports Tab -->
+            <section id="tab-reports" class="tab-pane">
+                <div class="reports-container">
+                    <!-- Report Generator Panel (Left) -->
+                    <div class="report-generator card-panel">
+                        <h2>Report Generation Console</h2>
+                        <p class="description">Compile an AI-powered One-Page Executive Report analyzing the music discovery behaviors, personas, and actionable opportunities.</p>
+                        <button class="btn btn-primary btn-block" id="btn-generate-report">
+                            <i class="fa-solid fa-file-invoice"></i> Generate One-Page Summary Report
+                        </button>
+                        
+                        <hr class="report-divider">
+
+                        <!-- Email sharing form -->
+                        <div class="email-sharing-panel" id="email-form-panel">
+                            <h2>Email Dispatcher</h2>
+                            <p class="description">Email the generated One-Pager directly to key stakeholders.</p>
+                            <form id="email-form">
+                                <div class="form-group">
+                                    <label for="email-recipient">Recipient Email(s)</label>
+                                    <input type="text" id="email-recipient" placeholder="product-team@spotify.com (comma separated)" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-subject">Subject</label>
+                                    <input type="text" id="email-subject" placeholder="Spotify Growth Insights Report" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email-note">Personalized Message</label>
+                                    <textarea id="email-note" rows="3" placeholder="Hey team, here is the fresh reviews summary showing our latest recommendations pain points. Let me know your thoughts."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block" id="btn-send-email" disabled>
+                                    <i class="fa-solid fa-envelope"></i> Send Report via Email
+                                </button>
+                            </form>
+                            <!-- Delivery Alerts -->
+                            <div class="alert" id="email-status-alert"></div>
+                        </div>
+                    </div>
+
+                    <!-- Report Preview Pane (Right) -->
+                    <div class="report-preview card-panel">
+                        <div class="preview-header">
+                            <h2>One-Pager Summary Preview</h2>
+                            <button class="btn btn-secondary btn-sm" id="btn-copy-report" disabled>
+                                <i class="fa-regular fa-copy"></i> Copy HTML
+                            </button>
+                        </div>
+                        <div class="report-frame" id="report-preview-frame">
+                            <div class="empty-preview">
+                                <i class="fa-regular fa-file-lines"></i>
+                                <p>No report generated yet. Click "Generate One-Page Summary Report" to start.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings & Ingestion Tab -->
+            <section id="tab-settings" class="tab-pane">
+                <div class="settings-grid">
+                    <!-- Config Section -->
+                    <div class="card-panel">
+                        <h2>Groq API Settings</h2>
+                        <form id="settings-groq-form">
+                            <div class="form-group">
+                                <label for="settings-key">Groq API Key</label>
+                                <input type="password" id="settings-key" placeholder="Enter gsk_..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-model">LLM Model</label>
+                                <select id="settings-model">
+                                    <option value="llama-3.3-70b-versatile">llama-3.3-70b-versatile (Recommended)</option>
+                                    <option value="llama-3.1-70b-versatile">llama-3.1-70b-versatile</option>
+                                    <option value="llama-3.1-8b-instant">llama-3.1-8b-instant (Fast)</option>
+                                    <option value="mixtral-8x7b-32768">mixtral-8x7b-32768</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save API Configuration</button>
+                        </form>
+                    </div>
+
+                    <!-- SMTP Config Section -->
+                    <div class="card-panel">
+                        <h2>SMTP Email Settings</h2>
+                        <form id="settings-smtp-form">
+                            <div class="form-group">
+                                <label for="settings-smtp-host">SMTP Host</label>
+                                <input type="text" id="settings-smtp-host" placeholder="smtp.gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-smtp-port">SMTP Port</label>
+                                <input type="text" id="settings-smtp-port" placeholder="587">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-smtp-user">SMTP Username</label>
+                                <input type="text" id="settings-smtp-user" placeholder="user@gmail.com">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-smtp-pass">SMTP Password</label>
+                                <input type="password" id="settings-smtp-pass" placeholder="App password">
+                            </div>
+                            <div class="form-group">
+                                <label for="settings-smtp-sender">Sender Email Address</label>
+                                <input type="email" id="settings-smtp-sender" placeholder="user@gmail.com">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save SMTP Configuration</button>
+                        </form>
+                    </div>
+
+                    <!-- Scraper Ingestion Section -->
+                    <div class="card-panel">
+                        <h2>Live Review Ingestion</h2>
+                        <form id="settings-scraper-form">
+                            <div class="form-group">
+                                <label for="scrape-source">Ingestion Platform</label>
+                                <select id="scrape-source">
+                                    <option value="play_store">Google Play Store Reviews (No Auth)</option>
+                                    <option value="reddit">Reddit Discussions (Search API-less)</option>
+                                    <option value="spotify_forum">Spotify Forums (BeautifulSoup Scrape)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="scrape-limit">Ingestion Limit (Record Count)</label>
+                                <select id="scrape-limit">
+                                    <option value="10">10 Records</option>
+                                    <option value="20" selected>20 Records</option>
+                                    <option value="50">50 Records</option>
+                                    <option value="100">100 Records</option>
+                                    <option value="500">500 Records</option>
+                                    <option value="1000">1,000 Records</option>
+                                    <option value="2500">2,500 Records</option>
+                                    <option value="5000">5,000 Records</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="scrape-query">Search Keywords (Reddit & Forum)</label>
+                                <input type="text" id="scrape-query" value="music discovery">
+                            </div>
+                            <button type="submit" class="btn btn-primary" id="btn-trigger-scrape">Trigger Data Ingestion</button>
+                        </form>
+                        <div class="progress-container" id="scrape-progress-container" style="display: none; margin-top: 16px;">
+                            <label id="scrape-progress-label" style="font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Ingesting: 0%</label>
+                            <progress id="scrape-progress-bar" value="0" max="100" style="width: 100%; height: 8px; border-radius: 4px; overflow: hidden; accent-color: var(--spotify-green); margin-top: 6px;"></progress>
+                            <p id="scrape-progress-status" style="font-size: 12px; margin-top: 6px; color: var(--spotify-green); font-weight: 600;"></p>
+                        </div>
+                        <div class="console-box" id="scrape-console">
+                            <p class="system-log">[System] Ready to ingest data.</p>
+                        </div>
+                    </div>
+
+                    <!-- Database Diagnostics Section -->
+                    <div class="card-panel">
+                        <h2>Database Operations</h2>
+                        <p class="description">Re-seed your reviews database with pre-built mock data containing realistic music discovery challenges. This allows testing all LLM synthesis and report features immediately.</p>
+                        <div class="db-actions">
+                            <button class="btn btn-danger btn-block" id="btn-seed-mock"><i class="fa-solid fa-database"></i> Seed/Reset Mock Reviews Database</button>
+                        </div>
+                        <div class="status-msg" id="db-status-msg"></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Loader element -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <p id="loading-message">Processing request...</p>
+    </div>
+    
+    <!-- App Controller Script -->
+    <script src="app.js"></script>
+</body>
+</html>
