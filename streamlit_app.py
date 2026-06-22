@@ -719,7 +719,10 @@ elif tab == "Growth Reports":
                     )
                     if result.get("success"):
                         if result.get("simulation"):
-                            st.info(f"📧 **Simulation Mode Active**: SMTP credentials are not fully configured. Email was saved locally to: `{result.get('log_file')}`.")
+                            if "smtp_error" in result:
+                                st.warning(f"⚠️ **Real SMTP attempt failed**: `{result['smtp_error']}`. Falling back to Simulation Mode (Email saved locally to: `{result['log_file']}`).")
+                            else:
+                                st.info(f"📧 **Simulation Mode Active**: SMTP credentials are not fully configured. Email was saved locally to: `{result.get('log_file')}`.")
                         else:
                             st.success(f"📧 Email sent successfully to {', '.join(result.get('recipients'))}!")
                     else:
