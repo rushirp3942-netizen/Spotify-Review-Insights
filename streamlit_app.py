@@ -138,26 +138,37 @@ st.markdown("""
 
 # Helper functions for config management
 def load_config() -> dict:
-    default_config = {
-        "groq_api_key": os.environ.get("GROQ_API_KEY", "").strip(),
-        "groq_model": os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile").strip(),
-        "smtp_host": os.environ.get("SMTP_HOST", "").strip(),
-        "smtp_port": os.environ.get("SMTP_PORT", "587").strip(),
-        "smtp_username": os.environ.get("SMTP_USERNAME", "").strip(),
-        "smtp_password": os.environ.get("SMTP_PASSWORD", "").strip(),
-        "smtp_sender_email": os.environ.get("SMTP_SENDER_EMAIL", "").strip()
-    }
+    # 1. Load config.json as base configuration if it exists
+    config_data = {}
     if os.path.exists("config.json"):
         try:
             with open("config.json", "r", encoding="utf-8") as f:
                 saved = json.load(f)
-                cleaned = {k: v.strip() if isinstance(v, str) else v for k, v in saved.items()}
-                for k, v in cleaned.items():
-                    if v or not default_config.get(k):
-                        default_config[k] = v
+                config_data = {k: v.strip() if isinstance(v, str) else v for k, v in saved.items()}
         except Exception as e:
             print(f"[Streamlit] Error loading configuration: {str(e)}")
-    return default_config
+
+    # 2. Allow environment variables (Streamlit Secrets) to overwrite base values
+    keys = ["groq_api_key", "groq_model", "smtp_host", "smtp_port", "smtp_username", "smtp_password", "smtp_sender_email"]
+    defaults = {
+        "groq_api_key": "",
+        "groq_model": "llama-3.3-70b-versatile",
+        "smtp_host": "",
+        "smtp_port": "587",
+        "smtp_username": "",
+        "smtp_password": "",
+        "smtp_sender_email": ""
+    }
+    
+    for k in keys:
+        # Check both uppercase (Streamlit Secrets standard) and lowercase
+        env_val = os.environ.get(k.upper()) or os.environ.get(k)
+        if env_val:
+            config_data[k] = env_val.strip()
+        elif k not in config_data:
+            config_data[k] = defaults[k]
+            
+    return config_data
 
 def save_config(config: dict):
     try:
