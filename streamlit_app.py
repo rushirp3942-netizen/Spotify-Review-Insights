@@ -694,7 +694,7 @@ elif tab == "Growth Reports":
         
         recipient_email = st.text_input("Recipient Email(s)", placeholder="team@spotify.com (comma separated)")
         subject_input = st.text_input("Subject", value="Spotify Growth Insights Report")
-        note_input = st.text_area("Personalized Message", value="Hey team, here is the fresh reviews summary showing recommendations pain points. Let me know your thoughts.", rows=3)
+        note_input = st.text_area("Personalized Message", value="Hey team, here is the fresh reviews summary showing recommendations pain points. Let me know your thoughts.", height=100)
         
         # Dispatch button
         has_cached = bool(st.session_state.cached_report_html)
